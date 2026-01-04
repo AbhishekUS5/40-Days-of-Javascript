@@ -131,13 +131,32 @@ console.log(fruit === oneMoreFruit);
 
 // object.assign
 // it copies all of the object properties from the source object to the target objects 
-const target = {p:1, q:2};
-const source = {a:3, b:5};
-const returnObj = Object.assign(target,source);
+const target = { p: 1, q: 2 };
+const source = { a: 3, b: 5 };
+const returnObj = Object.assign(target, source);
 console.log(returnObj)
 
-const target1 = {p:1, a:2};
-const source1 = {a:3, b:5};
-const returnObj1 = Object.assign(target1,source1);
+const target1 = { p: 1, a: 2 };
+const source1 = { a: 3, b: 5 };
+const returnObj1 = Object.assign(target1, source1);
 console.log(returnObj1)
 
+const obj = { name: "tapascript" };
+const obj2 = Object.assign({}, obj);
+console.log(obj2);
+console.log(obj);
+console.log(obj === obj2);
+
+const obj3 = {
+    a: 1,
+    b: { c: 2 }
+}
+console.log(obj3.b.c);
+
+const obj4 = Object.assign({}, obj3);
+obj4.b.c=3;
+console.log(obj3.b.c) //3
+console.log(obj4.b.c) //3 
+// when we update the value in obj4, the changes also gets reflected in obj3
+// object.assign performs shallow copy. it copies the properties value from the source to the target
+ 
