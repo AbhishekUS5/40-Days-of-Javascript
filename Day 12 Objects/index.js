@@ -148,8 +148,8 @@ console.log(obj);
 console.log(obj === obj2);
 
 const obj3 = {
-    a: 1,
-    b: { c: 2 }
+    a: 1, 
+    b: { c: 2 } 
 }
 console.log(obj3.b.c);
 
@@ -159,4 +159,38 @@ console.log(obj3.b.c) //3
 console.log(obj4.b.c) //3 
 // when we update the value in obj4, the changes also gets reflected in obj3
 // object.assign performs shallow copy. it copies the properties value from the source to the target
- 
+// while dealing the nested objects, object.assgin copies the refernces of those nested objects rather than creating a new copy
+/*const obj3 = {
+    a: 1, // creaed a new copy
+    b: { c: 2 } // here it just copies the references 
+}*/
+obj4.a=1000;
+console.log(obj4.a)
+console.log(obj3.a)
+// if u are dealing the non nested oject for assign it wil be creating a new reference always
+
+// for deep cloning use structured clone 
+const obj5= structuredClone(obj3);
+obj5.a = 300;
+obj5.b.c = 30;
+
+console.log(obj5.a); // 300
+console.log(obj3.a); // 1
+
+console.log(obj4.a); // 1000
+console.log(obj3.a) // 1
+
+// //object.entries
+// const myObj={
+//     a: "Samuel",
+//     b: 12
+// }
+// const myArr= Object.entries(myObj);
+// console.log(myArr);
+
+// const entries=new Map([
+//     ["foo","bar"],
+//     ["baz",42],
+// ]);
+// const objEntries = Object.fromEntries(entries);
+// console.log(objEntries);
