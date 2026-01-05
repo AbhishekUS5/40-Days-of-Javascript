@@ -61,3 +61,69 @@ function outer(a) {
 const outerResult = outer(5);
 outerResult(3);
 
+const getFood = () => this;
+console.log("this inside the arrow function defined in the global scope", getFood());
+
+// const food ={
+//     name: "mango",
+//     color: "yellow",
+//     getDesc: () => `${this.name} is ${this.color}`,
+// }
+// console.log(food.getDesc());
+const food = {
+    name: "mango",
+    color: "yellow",
+    getDesc: function () {
+        return () => `${this.name} is ${this.color}`
+    }
+}
+const descFunction = food.getDesc()
+console.log(descFunction());
+
+// explicit binding
+// call method
+function greeting() {
+    console.log(`Hello, ${this.name} belongs to ${this.address}`);
+}
+
+const user = {
+    name: 'Tapascript',
+    address: 'Udupi'
+};
+
+greeting.call(user);
+
+const likes = function (hobby1, hobby2) {
+    console.log(this.name + ' likes ' + hobby1 + ', ' + hobby2);
+}
+const person = {
+    name: "Sam"
+}
+likes.call(person, "teaching", "blogging");
+
+const hobbiesToApply = ["sleeping", "eating"];
+likes.apply(person, hobbiesToApply);
+
+// bind()
+const newHobbies = function (hobby1, hobby2) {
+    console.log(this.name + ' likes ' + hobby1 + ', ' + hobby2);
+}
+const officer = {
+    name: 'Bob'
+};
+const newFn = newHobbies.bind(officer, "Dancing", "singing");
+newFn();
+
+// the new binding
+const Cartoon = function (name, animal) {
+    this.name = name;
+    this.animal = animal;
+    this.log = function () {
+        console.log(this.name + ' is a ' + this.animal);
+    }
+};
+
+const tomCartoon = new Cartoon("tom", "cat");
+tomCartoon.log()
+const jerryCartoon = new Cartoon("Jerry", "mouse");
+jerryCartoon.log()
