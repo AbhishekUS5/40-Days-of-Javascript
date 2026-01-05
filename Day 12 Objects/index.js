@@ -148,13 +148,13 @@ console.log(obj);
 console.log(obj === obj2);
 
 const obj3 = {
-    a: 1, 
-    b: { c: 2 } 
+    a: 1,
+    b: { c: 2 }
 }
 console.log(obj3.b.c);
 
 const obj4 = Object.assign({}, obj3);
-obj4.b.c=3;
+obj4.b.c = 3;
 console.log(obj3.b.c) //3
 console.log(obj4.b.c) //3 
 // when we update the value in obj4, the changes also gets reflected in obj3
@@ -164,13 +164,13 @@ console.log(obj4.b.c) //3
     a: 1, // creaed a new copy
     b: { c: 2 } // here it just copies the references 
 }*/
-obj4.a=1000;
+obj4.a = 1000;
 console.log(obj4.a)
 console.log(obj3.a)
 // if u are dealing the non nested oject for assign it wil be creating a new reference always
 
 // for deep cloning use structured clone 
-const obj5= structuredClone(obj3);
+const obj5 = structuredClone(obj3);
 obj5.a = 300;
 obj5.b.c = 30;
 
@@ -180,17 +180,117 @@ console.log(obj3.a); // 1
 console.log(obj4.a); // 1000
 console.log(obj3.a) // 1
 
-// //object.entries
-// const myObj={
-//     a: "Samuel",
-//     b: 12
-// }
-// const myArr= Object.entries(myObj);
-// console.log(myArr);
+//object.entries
+const myObj = { // convert object to array
+    a: "Samuel",
+    b: 12
+}
+const myArr = Object.entries(myObj);
+console.log(myArr);
 
-// const entries=new Map([
-//     ["foo","bar"],
-//     ["baz",42],
-// ]);
-// const objEntries = Object.fromEntries(entries);
-// console.log(objEntries);
+const entries = new Map([ // convert object to array
+    ["foo", "bar"],
+    ["baz", 42],
+]);
+const objEntries = Object.fromEntries(entries);
+console.log(objEntries);
+
+// immutabilty
+// if we dont want the object to be changed 
+const emp = {
+    sal: 100
+}
+Object.freeze(emp);
+emp.sal = 200;
+delete emp.sal;
+console.log(emp)
+// checking if the object is immultable or mutable
+console.log(Object.isFrozen(emp));
+
+//seal
+const dept = {
+    name: "finanace"
+}
+
+Object.seal(dept);
+dept.address = "Banglore" // it will not get addedd
+dept.name = "HR"
+console.log(dept);
+
+console.log(Object.hasOwn(dept, "name"));
+
+// Object destructuring
+const student = {
+    'name': 'John Williamson',
+    'age': 9,
+    'std': 3,
+    'subjects': ['Maths', 'English', 'EVS'],
+    "meals": "Gobi machurian",
+    'parents': {
+        'father': 'Brown Williamson',
+        'mother': 'Sophia',
+        'email': 'john-parents@abcde.com'
+    },
+    'address': {
+        'street': '65/2, brooklyn road',
+        'city': 'Carterton',
+        'country': 'New Zealand',
+        'zip': 5791
+    }
+}
+const { name, age } = student;
+// const {name,age, meal="gobi"} =student;
+const city = student.address.city;
+let meals = student.meals ? student.meals : "bread"
+console.log(name, age, meals)
+
+const { subjects, numberOfSubjects = subjects.length } = student;
+console.log(numberOfSubjects)
+
+//alias
+const { std: standard } = student;
+console.log(standard)
+
+const { address: { zip } } = student;
+// console.log(address.zip);
+console.log(zip)
+
+//function destructuring
+function sendEmail({ parents: { email } }) {
+    //console.log(`Sent an email to ${student.parents.email}`)
+    console.log(`Sent an email to ${email}`)
+}
+sendEmail(student);
+
+const { name: anotherName, subjects: anotherSubs } = student;
+console.log(anotherName, anotherSubs);
+
+const students = [
+    {
+        'name': 'William',
+        'grade': 'A'
+    },
+    {
+        'name': 'Tom',
+        'grade': 'A+',
+    },
+    {
+        'name': 'Bob',
+        'grade': 'B'
+    }
+];
+
+for (let { name, grade } of students) {
+    console.log(name, grade)
+}
+
+console.log("Optional Chaining ...")
+const employee = {
+    salary: {
+        bonus: 300
+    }
+};
+console.log(employee.sal);
+// console.log(employee.dept.name) //error
+const name1 = employee.department?.name
+console.log(name1)

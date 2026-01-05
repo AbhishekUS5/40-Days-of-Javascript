@@ -124,6 +124,6 @@ const Cartoon = function (name, animal) {
 };
 
 const tomCartoon = new Cartoon("tom", "cat");
-tomCartoon.log()
+tomCartoon.log();
 const jerryCartoon = new Cartoon("Jerry", "mouse");
-jerryCartoon.log()
+jerryCartoon.log();
