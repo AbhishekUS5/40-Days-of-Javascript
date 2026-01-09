@@ -21,34 +21,34 @@ console.log("Promises");
 // error: when reject(error) is called
 
 // How prmises are resolved and rejected
-// let promise = new Promise(function(result, reject){
-//     resolve("Hey, im done")
-// });
+let promise = new Promise(function(result, reject){
+    resolve("Hey, im done")
+});
 
-// let promise2 = new Promise(function(resolve, reject){
-//     reject("Something is not right")
-// })
+let promise2 = new Promise(function(resolve, reject){
+    reject("Something is not right")
+})
 
 // Handling promises
 
 // .then()
-// let loading = false;
-// const promise = new Promise(function (resolve, reject) {
-//     // make a network call(API call/IO operation)
-//     loading = true;
-//     resolve("I am resolved...")
-// });
+let loading = false;
+const promise1 = new Promise(function (resolve, reject) {
+    // make a network call(API call/IO operation)
+    loading = true;
+    resolve("I am resolved...")
+});
 
-// promise.then(
-//     (result) => { console.log(result) }
-//     // (error) => { console.error(error) }
-// ).catch(
-//     (error) => {console.error(error)}
-// ).finally(
-//     () => {
-//         loading = false;
-//     }
-// );
+promise1.then(
+    (result) => { console.log(result) }
+    // (error) => { console.error(error) }
+).catch(
+    (error) => {console.error(error)}
+).finally(
+    () => {
+        loading = false;
+    }
+);
 
 //promise chain
 // rule 1: Every promise gives you a .then() handler method. Every rejected promise provides you a .catch() 
@@ -59,50 +59,50 @@ console.log("Promises");
 // you can retrun any other value from a synchronous operation. Lastly, you can throw an error
 
 // return a promise from the .then() handler
-// let getuser = new Promise(function (resolve, reject) {
-//     const user = {
-//         name: 'John Doe',
-//         email: 'jdoe@gmail.com',
-//         password: 'jdoe.password',
-//         permissions: ['db', 'hr', 'dev']
-//     };
-//     resolve(user)
-// });
-// getuser.
-//     then((user) => {
-//         console.log(`Got user ${user.name}`)
-//         return new Promise(function (resolve, reject) {
-//             setTimeout(function () {
-//                 resolve('Bangalore')
-//             }, 2000)
-//         }).then((address) => {
-//             console.log(`User address is ${address}`);
-//         })
-//     })
+let getuser = new Promise(function (resolve, reject) {
+    const user = {
+        name: 'John Doe',
+        email: 'jdoe@gmail.com',
+        password: 'jdoe.password',
+        permissions: ['db', 'hr', 'dev']
+    };
+    resolve(user)
+});
+getuser.
+    then((user) => {
+        console.log(`Got user ${user.name}`)
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                resolve('Bangalore')
+            }, 2000)
+        }).then((address) => {
+            console.log(`User address is ${address}`);
+        })
+    })
 
 // // return a simple value from the .then() handler
-// getuser.then(function (user) {
-//     console.log(`Got user ${user.name}`);
-//     return user.email;
-// })
-//     .then(function (email) {
-//         console.log(`User email is ${email}`)
-//     });
+getuser.then(function (user) {
+    console.log(`Got user ${user.name}`);
+    return user.email;
+})
+    .then(function (email) {
+        console.log(`User email is ${email}`)
+    });
 
 // // throw an error from the .then() handler
-// getuser.then((user) => {
-//     console.log(`Got user ${user.name}`)
-//     if (!user.permissions.includes("hr")) {
-//         throw new Error("You are not allowed to access the HR module")
-//     }
-//     return user.email;
-// })
-//     .then((email) => {
-//         console.log(`User email is ${email}`)
-//     })
-//     .catch((error) => {
-//         console.log(error)
-//     })
+getuser.then((user) => {
+    console.log(`Got user ${user.name}`)
+    if (!user.permissions.includes("hr")) {
+        throw new Error("You are not allowed to access the HR module")
+    }
+    return user.email;
+})
+    .then((email) => {
+        console.log(`User email is ${email}`)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 
 // Rule 3: You can rethrow from the .catch() handler to handle the error later. 
 // In this case, the control will go to the next closest .catch() handler.
