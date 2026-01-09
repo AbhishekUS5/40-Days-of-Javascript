@@ -191,3 +191,32 @@ promise.then(function (value) {
     console.log(value)
     return value;
 });
+
+// Handling multiple promises
+
+// promise.all([promises])
+function getPromise(URL) {
+    return fetch(URL)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Http error ${response.status}`);
+            }
+            return response.json()
+        })
+}
+const BULBASAUR_POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon/bulbasaur';
+const RATICATE_POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon/raticate';
+const KAKUNA_POKEMONS_URL = 'https://pokeapi.co/api/v2/pokemon/kakuna';
+
+let promise_1 = getPromise(BULBASAUR_POKEMONS_URL);
+let promise_2 = getPromise(RATICATE_POKEMONS_URL);
+let promise_3 = getPromise(KAKUNA_POKEMONS_URL);
+
+Promise.all([promise_1, promise_2, promise_3])
+    .then((result) => {
+        console.log(result)
+    })
+    .catch((error) => {
+        console.error(error)
+    })
+
