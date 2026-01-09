@@ -21,7 +21,7 @@ console.log("Promises");
 // error: when reject(error) is called
 
 // How prmises are resolved and rejected
-let promise = new Promise(function(result, reject){
+let promises = new Promise(function(result, reject){
     resolve("Hey, im done")
 });
 
@@ -134,6 +134,60 @@ promise401
 // or error. It just passes the result as is to the next handler
 
 //create a promise
-let promiseFinally = new Promise(function(resolve, reject){
+let promiseFinally = new Promise(function (resolve, reject) {
     resolve('Testing finally.');
+});
+
+promiseFinally.finally(() => {
+    console.log("Running finally")
+}).then((result) => {
+    console.log(result)
+})
+
+// Rule 5- calling the .then() handler method multiple times on a single promise is not chaining.
+
+//promise chaining
+// promiseFinally.then((result)=>{
+//     // Do something
+//     return 101;
+// })
+// .then((result)=>{
+//     //result //101
+//     //throw error
+// })
+// .catch((error)=>{
+
+// })
+
+let promise = new Promise(function (resolve, reject) {
+    resolve(10);
+})
+
+//calling the .then() method multiple times
+// on a single promise - its not a chain
+// promise.then(function (value) {
+//     value++; // 10
+//     return value; //when ever we are creating a new promise, we are creating the new instantiation of the promise
+// });
+// promise.then(function (value) {
+//     value = value + 10; // 20
+//     return value;
+// });
+// promise.then(function (value) {
+//     value = value + 20; // 30
+//     console.log(value)
+//     return value;
+// });
+promise.then(function (value) {
+    value++; // 10
+    return value; //when ever we are creating a new promise, we are creating the new instantiation of the promise
+})
+.then(function (value) {
+    value = value + 10; // 20
+    return value;
+})
+.then(function (value) {
+    value = value + 20; // 30
+    console.log(value)
+    return value;
 });
